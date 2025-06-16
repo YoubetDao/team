@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Partners from "@/components/Partners";
+import { PartnersSection } from "@/components/Partners";
 import Portfolio from "@/components/Portfolio";
 import Achievements from "@/components/Achievements";
 import Services from "@/components/Services";
@@ -12,7 +12,7 @@ export default function Home() {
       <div className="max-w-[1400px] w-full px-4 sm:px-6 lg:px-8">
         <Header />
         <Hero />
-        <Partners />
+        <PartnersSection />
         <Portfolio />
         <Achievements />
         <Services />

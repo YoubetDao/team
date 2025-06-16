@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import Button from "./common/button";
 
 export default function Hero() {
   return (
@@ -42,11 +43,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+            className="text-4xl font-bold leading-tight"
           >
-            <span className="block">Creating a</span>
-            <span className="block gradient-text">decentralized network</span>
-            <span className="block">for collaboration</span>
+            Creating a decentralized network <br /> for collaboration
           </motion.h1>
 
           {/* 副标题 */}
@@ -54,7 +53,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
             A crypto-native collaboration network, helping teams and individuals
             turn ideas into real products.We’ve delivered 10+ Web3 and AI
@@ -71,22 +70,19 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 1.0 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-4 bg-[#c05cf6] font-medium text-black transition-all duration-200 text-base rounded-full cursor-pointer hover:bg-white flex items-center space-x-2"
-            >
+            <Button className="flex items-center gap-2">
               <span>Explore Our Works</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            </Button>
 
-            <motion.a
-              href="#services"
-              whileHover={{ scale: 1.05 }}
-              className="px-6 py-4 text-white border border-white rounded-full cursor-pointer hover:bg-white hover:text-black transition-all duration-200"
+            <Button
+              variant="secondary"
+              onClick={() => {
+                window.location.href = "#services";
+              }}
             >
               Learn More
-            </motion.a>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

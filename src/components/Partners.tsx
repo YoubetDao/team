@@ -11,75 +11,105 @@ import superfluidLogo from "@/assets/logos/superfluid.jpeg";
 import bewaterLogo from "@/assets/logos/bewater.jpeg";
 import cosetLogo from "@/assets/logos/coset.svg";
 import virtualsLogo from "@/assets/logos/virtuals.svg";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect } from "react";
 
-export default function Partners() {
-  const partners = [
-    { img: animocaLogo, name: "Animoca Brands" },
-    { img: openCampusLogo, name: "OpenCampus" },
-    { img: openbuildLogo, name: "Openbuild" },
-    { img: socialLayerLogo, name: "SocialLayer" },
-    { img: superfluidLogo, name: "Superfluid" },
-    { img: virtualsLogo, name: "Virtuals" },
-    { img: bewaterLogo, name: "Bewater" },
-    { img: cosetLogo, name: "Coset" },
-  ];
+const partners = [
+  { img: animocaLogo, name: "Animoca Brands" },
+  { img: openCampusLogo, name: "OpenCampus" },
+  { img: openbuildLogo, name: "Openbuild" },
+  { img: socialLayerLogo, name: "SocialLayer" },
+  { img: superfluidLogo, name: "Superfluid" },
+  { img: virtualsLogo, name: "Virtuals" },
+  { img: bewaterLogo, name: "Bewater" },
+  { img: cosetLogo, name: "Coset" },
+];
 
+export const PartnersSection = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "start",
+    dragFree: true,
+    skipSnaps: false,
+  });
+
+  useEffect(() => {
+    let autoplay: NodeJS.Timeout;
+    if (emblaApi) {
+      const startAutoplay = () => {
+        autoplay = setInterval(() => {
+          emblaApi.scrollNext();
+        }, 2000); // 每2秒滚动一次
+      };
+
+      const stopAutoplay = () => {
+        clearInterval(autoplay);
+      };
+
+      // 开始自动播放
+      startAutoplay();
+
+      // 当用户手动操作时暂停自动播放
+      emblaApi.on("pointerDown", stopAutoplay);
+      emblaApi.on("pointerUp", startAutoplay);
+    }
+
+    return () => clearInterval(autoplay);
+  }, [emblaApi]);
   return (
-    <section id="partners" className="py-20 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="partners" className="py-24">
+      <div className="container mx-auto px-4">
+        <div className="mb-16 text-center">
+          <h2 className="mb-8  text-2xl font-bold text-transparent text-white md:text-4xl">
+            Our valued partners
+          </h2>
+          <p className="mb-8 text-lg text-muted-foreground text-white">
+            We&apos;re proud to work with industry leaders to deliver the best
+            experience.
+          </p>
+        </div>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-8"
+          className="mx-auto"
         >
-          <div className="bg-[#252525] text-[#c05cf6] text-lg font-medium border border-[#252525] rounded-full px-4 py-2 w-fit mx-auto">
-            Our Partners
-          </div>
-          <div className="text-gray-400  max-w-2xl mx-auto mt-4">
-            We’re proud to be supported by leading Web3 ecosystems and
-            innovation platforms that share our vision of open collaboration and
-            decentralized development.
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {partners.map((partner, index) => (
+                <div
+                  key={index}
+                  className="w-[150px] flex-shrink-0 pl-4 md:w-[200px] md:pl-6"
+                >
+                  <div className="flex h-[80px] items-center justify-center p-4">
+                    <Image
+                      src={partner.img}
+                      alt={`${partner.name} logo`}
+                      className="h-[30px] w-auto max-w-[100px] object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+              {/* 复制一遍内容以确保无缝循环 */}
+              {partners.map((partner, index) => (
+                <div
+                  key={`duplicate-${index}`}
+                  className="w-[150px] flex-shrink-0 pl-4 md:w-[200px] md:pl-6"
+                >
+                  <div className="flex h-[80px] items-center justify-center p-4">
+                    <Image
+                      src={partner.img}
+                      alt={`${partner.name} logo`}
+                      className="h-[30px] w-auto max-w-[100px] object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
-
-        {/* 合作伙伴滚动条 */}
-        <div className="relative">
-          <div className="flex overflow-hidden">
-            <motion.div
-              animate={{ x: [-1000, 0] }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="flex space-x-12 min-w-max"
-            >
-              {/* 重复两次以实现无缝滚动 */}
-              {[...partners, ...partners].map((partner, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1 }}
-                  className="flex-shrink-0 glass-effect rounded-lg px-8 py-6  min-w-[200px] text-center"
-                >
-                  <Image
-                    className="max-h-16 max-w-full"
-                    src={partner.img}
-                    alt={partner.name}
-                    width={200}
-                    height={200}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* 渐变蒙版 */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
-        </div>
       </div>
     </section>
   );
-}
+};

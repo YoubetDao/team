@@ -61,7 +61,7 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="bg-[#252525] text-[#c05cf6] text-lg font-medium border border-[#252525] rounded-full px-4 py-2 w-fit mx-auto">
+          <div className="flex w-max mx-auto cursor-pointer items-center justify-center gap-2 rounded-[10px] bg-white px-4 py-2.5 text-black transition-opacity hover:opacity-90">
             Our Portfolio
           </div>
           <div className="text-gray-400 max-w-2xl mx-auto mt-4">
